@@ -1,0 +1,12 @@
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\bin\Release\net5.0\HRMUtility.deps.json
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\bin\Release\net5.0\HRMUtility.dll
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\bin\Release\net5.0\ref\HRMUtility.dll
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\bin\Release\net5.0\HRMUtility.pdb
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.csproj.AssemblyReference.cache
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.AssemblyInfoInputs.cache
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.AssemblyInfo.cs
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.csproj.CoreCompileInputs.cache
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.dll
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\ref\HRMUtility.dll
+C:\Workspace-Personal\HRM-Dupty\HRMUtility\obj\Release\net5.0\HRMUtility.pdb
