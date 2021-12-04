@@ -18,6 +18,7 @@ namespace Financify.Controllers
         {
             configuration = _configuration;
         }
+
         [AllowAnonymous]
         [HttpPost]
         [ActionName("CreateToken")]
