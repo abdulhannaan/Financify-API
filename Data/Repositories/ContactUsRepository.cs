@@ -77,7 +77,7 @@ namespace Data.Repositories
                 using (var _context = Db.Create())
                 {
 
-                    return _context.ContactUs.FirstOrDefault(o => o.Id == id);
+                    return _context.ContactUs.FirstOrDefault(o => o.Id == id && o.IsActive == true);
                 }
             }
             catch (Exception ex)
@@ -93,7 +93,7 @@ namespace Data.Repositories
             {
                 using (var _context = Db.Create())
                 {
-                    users = _context.ContactUs.ToList();
+                    users = _context.ContactUs.Where(o => o.IsActive== true).ToList();
                 }
             }
             catch (Exception ex)
