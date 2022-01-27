@@ -21,59 +21,74 @@ namespace Financify.Controllers
             userService = new UserService();
         }
 
-        //[AllowAnonymous]
-        //[HttpPost]
-        //[Route("sign-up")]
-        //public IActionResult SignUp([FromBody] UserDto user)
-        //{
-        //    var result = userService.SignUp(user);
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("sign-up")]
+        public IActionResult SignUp([FromBody] UserDto user)
+        {
+            var result = userService.SignUp(user);
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
-        //[Authorize]
-        //[HttpGet]
-        //[Route("list")]
-        //public IActionResult List()
-        //{
-        //    ApiResponseMessage response = new ApiResponseMessage();
-        //    var result = userService.List();
-           
-        //    response.Message = result != null && result.Count > 0 ? "Users list found." : "Not Record Found.";
-        //    response.Status = HttpStatusCode.OK;
-        //    response.Response = result;
+        [Authorize]
+        [HttpGet]
+        [Route("list")]
+        public IActionResult List()
+        {
+            ApiResponseMessage response = new ApiResponseMessage();
+            var result = userService.List();
 
-        //    return Ok(result);
-        //}
+            response.Message = result != null && result.Count > 0 ? "Users list found." : "Not Record Found.";
+            response.Status = HttpStatusCode.OK;
+            response.Response = result;
 
-        //[Authorize]
-        //[HttpPost]
-        //[Route("save")]
-        //public ActionResult Save(UserDto data)
-        //{
-        //    var loggedInUserId = GetUserId();
-        //    var result = userService.Save(data, loggedInUserId);
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
-        //[Authorize]
-        //[HttpGet]
-        //[Route("get")]
-        //public ActionResult Get(int Id)
-        //{
+        [Authorize]
+        [HttpPost]
+        [Route("save")]
+        public ActionResult Save([FromBody] UserDto data)
+        {
+            var loggedInUserId = GetUserId();
+            var result = userService.Save(data, loggedInUserId);
+            return Ok(result);
+        }
 
-        //    ApiResponseMessage response = new ApiResponseMessage();
-        //    var result = userService.Get(Id);
+        [Authorize]
+        [HttpGet]
+        [Route("get")]
+        public ActionResult Get(int Id)
+        {
 
-        //    if (result != null && result.Id > 0)
-        //        response.Message = "user Found";
-        //    else
-        //        response.Message = "Not Found";
-        //    response.Status = HttpStatusCode.OK;
-        //    response.Response = result;
+            ApiResponseMessage response = new ApiResponseMessage();
+            var result = userService.Get(Id);
 
-        //    return Ok(response);
-        //}
+            if (result != null && result.Id > 0)
+                response.Message = "user Found";
+            else
+                response.Message = "Not Found";
+            response.Status = HttpStatusCode.OK;
+            response.Response = result;
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("delete")]
+        public ActionResult Delete(string Ids)
+        {
+            ApiResponseMessage response = new ApiResponseMessage();
+            var result = userService.Delete(Ids);
+
+            response.Message = result ? "Deleted" : "Not Deleted";
+            response.Status = HttpStatusCode.OK;
+            response.Response = result;
+
+            return Ok(response);
+        }
 
         //[AllowAnonymous]
         //[HttpPost]

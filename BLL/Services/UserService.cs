@@ -384,6 +384,21 @@ namespace BLL.Services
                 return null;
             }
         }
+        public bool Delete(string ids)
+        {
+            try
+            {
+                using (var userRepository = new UserRepository())
+                {
+                    var listIds = ids.Split(',').Select(Int32.Parse).ToList();
+                    return userRepository.Delete(listIds);
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public List<User> GetPending()
         {

@@ -18,6 +18,7 @@ namespace Data.DataContext
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<ContactU> ContactUs { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<JoinU> JoinUs { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -65,11 +66,7 @@ namespace Data.DataContext
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.LastName)
+                entity.Property(e => e.FullName)
                     .IsRequired()
                     .HasMaxLength(100);
 
@@ -80,6 +77,8 @@ namespace Data.DataContext
                 entity.Property(e => e.Subject)
                     .IsRequired()
                     .HasMaxLength(200);
+
+                entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Country>(entity =>
@@ -93,6 +92,37 @@ namespace Data.DataContext
                     .HasMaxLength(3)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<JoinU>(entity =>
+            {
+                entity.Property(e => e.Body)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.EmailAddress)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.FileName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.MobileNo)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Subject)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<MenuItem>(entity =>

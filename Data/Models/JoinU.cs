@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Data.Models
 {
-    public partial class ContactU
+    public partial class JoinU
     {
         public int Id { get; set; }
         public string FullName { get; set; }
@@ -14,6 +14,8 @@ namespace Data.Models
         public string EmailAddress { get; set; }
         public string MobileNo { get; set; }
         public bool IsActive { get; set; }
+        public string FileName { get; set; }
+        public int JobId { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
     }

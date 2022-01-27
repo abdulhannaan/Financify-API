@@ -58,6 +58,10 @@ namespace Data.Repositories
                 {
 
                     var user = _context.Users.Where(o => userIds.Contains(o.Id)).ToList();
+                    if(user.Count == 0)
+                    {
+                        return false;
+                    }
                     _context.RemoveRange(user);
                     _context.SaveChanges();
                 }
