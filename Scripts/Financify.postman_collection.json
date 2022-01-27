@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "ad2c32d5-ae6d-4649-bf2f-337690738bd4",
+		"name": "Financify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "CreateToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\":\"test\",\r\n\"Password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44389/api/oauth/Token/createToken",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"oauth",
+								"Token",
+								"createToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact Us",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FullName\":\" test\",\r\n    \"Subject\":\"test\",\r\n    \"Body\":\"test\",\r\n    \"EmailAddress\":\"test@gmail.com\",\r\n    \"MobileNo\":\"1122\"\r\n}\r\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44389/api/contact-us/save",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"contact-us",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJleHAiOjE2NDMyODE1MjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM3NzYvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8ifQ.gnrYOet_rKvR3vJ6o7y1IhHJJyTFFBM-XseD3bkmBW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/contact-us/delete?Id=3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"contact-us",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJleHAiOjE2NDMyODE1MjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM3NzYvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8ifQ.gnrYOet_rKvR3vJ6o7y1IhHJJyTFFBM-XseD3bkmBW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/contact-us/list",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"contact-us",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJleHAiOjE2NDMyODE1MjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM3NzYvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8ifQ.gnrYOet_rKvR3vJ6o7y1IhHJJyTFFBM-XseD3bkmBW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/contact-us/view?Id=4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"contact-us",
+								"view"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Join Us",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FullName\":\" test\",\r\n    \"Subject\":\"test\",\r\n    \"Body\":\"test\",\r\n    \"EmailAddress\":\"test@gmail.com\",\r\n    \"MobileNo\":\"1122\",\r\n    \"FileName\":\"test\",\r\n    \"JobId\":1\r\n}\r\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44389/api/join-us/save",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"join-us",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJleHAiOjE2NDMyODA0NTAsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM3NzYvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8ifQ.xXN1NCWckmK1KXWmL0yAmHQQHpFM9-NqII8TSK2akeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/join-us/delete?Id=3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"join-us",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJleHAiOjE2NDMyODA0NTAsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM3NzYvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8ifQ.xXN1NCWckmK1KXWmL0yAmHQQHpFM9-NqII8TSK2akeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/join-us/view?Id=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"join-us",
+								"view"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsInVuaXF1ZV9uYW1lIjoiYWRtaW4iLCJleHAiOjE2NDMyODA0NTAsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM3NzYvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8ifQ.xXN1NCWckmK1KXWmL0yAmHQQHpFM9-NqII8TSK2akeQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/join-us/list",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"join-us",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\": \"test\",\r\n    \"Password\": \"12345\",\r\n    \"FirstName\": \"Abdual\",\r\n    \"LastName\": \"Hannan\",\r\n    \"Email\": \"hannan@xyz.com\",\r\n    \"Phone\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44389/api/user/sign-up",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"user",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwiZW1haWwiOiJoYW5uYW5AeHl6LmNvbSIsInVuaXF1ZV9uYW1lIjoidGVzdCIsImV4cCI6MTY0MzI4NTg1NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjYzNzc2LyJ9.hRgqAffYz4ftaNFA2NBecORDwO0fjnjhBuKKVFBogC0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"Id\" : 0,\r\n    \"Username\": \"umer test\",\r\n    \"Password\": \"12345\",\r\n    \"FirstName\": \"Muhammad\",\r\n    \"LastName\": \"Umer\",\r\n    \"NickName\":\"umr\",\r\n    \"DateOfBirth\": \"2021-08-08T00:00:00\",\r\n    \"Email\": \"umer@gmail.com\",\r\n    \"Phone\": \"0331332222\",\r\n    \"CountryId\": 166,\r\n    \"State\": \"Pubjab\",\r\n    \"City\": \"Lahore\",\r\n    \"Address\": \"73a\",\r\n    \"Zip\": \"22222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44389/api/user/save",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"user",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwiZW1haWwiOiJoYW5uYW5AeHl6LmNvbSIsInVuaXF1ZV9uYW1lIjoidGVzdCIsImV4cCI6MTY0MzI4NTg1NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjYzNzc2LyJ9.hRgqAffYz4ftaNFA2NBecORDwO0fjnjhBuKKVFBogC0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/user/list",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwiZW1haWwiOiJoYW5uYW5AeHl6LmNvbSIsInVuaXF1ZV9uYW1lIjoidGVzdCIsImV4cCI6MTY0MzI4NTg1NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjYzNzc2LyJ9.hRgqAffYz4ftaNFA2NBecORDwO0fjnjhBuKKVFBogC0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/user/get?Id=5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"user",
+								"get"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwiZW1haWwiOiJoYW5uYW5AeHl6LmNvbSIsInVuaXF1ZV9uYW1lIjoidGVzdCIsImV4cCI6MTY0MzI4NTg1NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2Mzc3Ni8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjYzNzc2LyJ9.hRgqAffYz4ftaNFA2NBecORDwO0fjnjhBuKKVFBogC0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44389/api/user/delete?Ids=3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44389",
+							"path": [
+								"api",
+								"user",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "Ids",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
