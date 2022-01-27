@@ -12,19 +12,19 @@ using System.Linq;
 
 namespace Data.Repositories
 {
-    public class ContactUsRepository : IDisposable
+    public class JoinUsRepository : IDisposable
     {
-        public ContactU Add(ContactU contact)
+        public JoinU Add(JoinU join)
         {
             try
             {
                 using (var _context = Db.Create())
                 {
-                    _context.Add(contact);
+                    _context.Add(join);
                     _context.SaveChanges();
                 }
 
-                return contact;
+                return join;
             }
             catch (Exception ex)
             {
@@ -32,17 +32,17 @@ namespace Data.Repositories
             }
         }
 
-        public ContactU Update(ContactU contact)
+        public JoinU Update(JoinU join)
         {
             try
             {
                 using (var _context = Db.Create())
                 {
-                    _context.Update(contact);
+                    _context.Update(join);
                     _context.SaveChanges();
                 }
 
-                return contact;
+                return join;
             }
             catch (Exception ex)
             {
@@ -50,15 +50,15 @@ namespace Data.Repositories
             }
         }
 
-        public bool Delete(List<int> contactIds)
+        public bool Delete(List<int> joinIds)
         {
             try
             {
                 using (var _context = Db.Create())
                 {
 
-                    var contact = _context.ContactUs.Where(o => contactIds.Contains(o.Id)).ToList();
-                    _context.RemoveRange(contact);
+                    var join = _context.JoinUs.Where(o => joinIds.Contains(o.Id)).ToList();
+                    _context.RemoveRange(join);
                     _context.SaveChanges();
                 }
 
@@ -70,14 +70,14 @@ namespace Data.Repositories
             }
         }
 
-        public ContactU Get(int id)
+        public JoinU Get(int id)
         {
             try
             {
                 using (var _context = Db.Create())
                 {
 
-                    return _context.ContactUs.FirstOrDefault(o => o.Id == id && o.IsActive == true);
+                    return _context.JoinUs.FirstOrDefault(o => o.Id == id && o.IsActive == true);
                 }
             }
             catch (Exception ex)
@@ -86,20 +86,20 @@ namespace Data.Repositories
             }
         }
 
-        public List<ContactU> List()
+        public List<JoinU> List()
         {
-            List<ContactU> contacts = new List<ContactU>();
+            List<JoinU> joins = new List<JoinU>();
             try
             {
                 using (var _context = Db.Create())
                 {
-                    contacts = _context.ContactUs.Where(o => o.IsActive== true).ToList();
+                    joins = _context.JoinUs.Where(o => o.IsActive== true).ToList();
                 }
             }
             catch (Exception ex)
             {
             }
-            return contacts;
+            return joins;
         }
 
         public void Dispose()

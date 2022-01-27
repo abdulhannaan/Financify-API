@@ -12,16 +12,16 @@ using System.Data;
 
 namespace BLL.Services
 {
-    public class ContactUsService
+    public class JoinUsService
     {
-        public ApiResponseMessage Save(ContactU data)
+        public ApiResponseMessage Save(JoinU data)
         {
             var response = new ApiResponseMessage();
 
             try
             {
-                ContactU obj = new ContactU();
-                using (var contactUsData = new ContactUsRepository())
+                JoinU obj = new JoinU();
+                using (var joinUsData = new JoinUsRepository())
                 {
                     obj.FullName = data.FullName;
                     obj.IsActive = true;
@@ -29,8 +29,10 @@ namespace BLL.Services
                     obj.EmailAddress = data.EmailAddress;
                     obj.Body = data.Body;
                     obj.MobileNo = data.MobileNo;
+                    obj.FileName = data.FileName;
+                    obj.JobId = data.JobId;
                     obj.CreatedOn = DateTime.Now;
-                    contactUsData.Add(obj);
+                    joinUsData.Add(obj);
                 }
                 response.Status = HttpStatusCode.OK;
                 response.Message = "Saved successfully!";
@@ -46,13 +48,13 @@ namespace BLL.Services
             return response;
         }
 
-        public List<ContactU> List()
+        public List<JoinU> List()
         {
             try
             {
-                using (var contactData = new ContactUsRepository())
+                using (var joinData = new JoinUsRepository())
                 {
-                    return contactData.List();
+                    return joinData.List();
                 }
             }
             catch (Exception ex)
@@ -61,21 +63,21 @@ namespace BLL.Services
             }
         }
 
-        public ApiResponseMessage Delete(int contactId)
+        public ApiResponseMessage Delete(int joinId)
         {
             var response = new ApiResponseMessage();
             try
             {
-                ContactU contact = new ContactU();
-                using (var contactData = new ContactUsRepository())
+                JoinU join = new JoinU();
+                using (var joinData = new JoinUsRepository())
                 {
-                    contact = contactData.Get(contactId);
+                    join = joinData.Get(joinId);
 
-                    if (contact != null && contact.Id > 0)
+                    if (join != null && join.Id > 0)
                     {
-                        contact.IsActive = false;
-                        contact.UpdatedOn = DateTime.Now;
-                        contactData.Update(contact);
+                        join.IsActive = false;
+                        join.UpdatedOn = DateTime.Now;
+                        joinData.Update(join);
 
                         response.Status = HttpStatusCode.OK;
                         response.Message = "Delete successfully!";
@@ -99,16 +101,17 @@ namespace BLL.Services
             return response;
         }
 
-        public ContactU View(int Id)
+
+        public JoinU View(int Id)
         {
             try
             {
-                ContactU contact = new ContactU();
+                JoinU join = new JoinU();
 
-                using (var contactData = new ContactUsRepository())
+                using (var joinData = new JoinUsRepository())
                 {
-                    contact = contactData.Get(Id);
-                    return contact;
+                    join = joinData.Get(Id);
+                    return join;
                 }
             }
             catch (Exception ex)
@@ -116,5 +119,6 @@ namespace BLL.Services
                 return null;
             }
         }
+
     }
 }
