@@ -100,5 +100,9 @@ namespace Utility.Commons
             }
         }
 
+        public static String GetTimestamp(DateTime value)
+        {
+            return value.ToString("yyyyMMddHHmmss");
+        }
     }
 }

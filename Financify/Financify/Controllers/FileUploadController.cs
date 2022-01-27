@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Utility.Commons;
+using BLL.Services;
 
 namespace Financify.Controllers
 {
@@ -17,23 +19,68 @@ namespace Financify.Controllers
     public class FileUploadController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private UserService userService;
 
         public FileUploadController(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnvironment = webHostEnvironment;
         }
 
-        private string[] allowedProfilePicExtentions = { ".jpg", ".png", ".jpeg" };
 
-        [HttpPost, DisableRequestSizeLimit]
-        [AllowAnonymous]
-        [Route("save")]
-        public async Task<IActionResult> Save(int userId, int fileType, int documentType)
+        [HttpGet]
+        [Authorize]
+        [Route("delete")]
+        public ActionResult Delete(int id, string moduleName, string fileName)
         {
             string contentRootPath = _webHostEnvironment.ContentRootPath;
             try
             {
+                //Getting Document Folder from enum
+                string documentFolder = moduleName;
+                //Create Folder path
+                var folderName = Path.Combine("Uploads", documentFolder);
+                string imagePath = Path.Combine(contentRootPath, folderName);
+                //check if the folder exists;
+                if (!Directory.Exists(imagePath))
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    DirectoryInfo dir = new DirectoryInfo(imagePath);
+                    var file = dir.GetFiles().FirstOrDefault(o => o.Name.Contains(fileName));
+                    if (file != null)
+                    {
+                        file.Delete();
+                        if (moduleName == "User")
+                        {
+                            ////userService.RemoveProfilePic(id);
+                        }
+                        return Ok();
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        //[Authorize]
+        [AllowAnonymous]
+        [Route("save")]
+        public async Task<IActionResult> Save(string moduleName)
+        {
+            string contentRootPath = _webHostEnvironment.ContentRootPath;
+            try
+            {
                 var formCollection = await Request.ReadFormAsync();
                 var file = formCollection.Files.First();
                 if (file.Length > 0)
@@ -41,17 +88,15 @@ namespace Financify.Controllers
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     string ext = Path.GetExtension(file.FileName).ToLower();
 
-                    if (!string.IsNullOrEmpty(ext) && fileType.Equals(Convert.ToInt32(FileType.ProfilePicture)))
+                    if (!string.IsNullOrEmpty(ext))
                     {
-                        if (allowedProfilePicExtentions.Contains(ext))
-                            fileName = "profileImage" + ext;
-                        else
-                            return BadRequest();
+                        fileName = Helper.GetTimestamp(DateTime.Now) + ext;
                     }
                     //Getting Document Folder from enum
-                    string documentFolder = Enums.GetFolderNameByModule(documentType);
+                    string documentFolder = moduleName;
                     //Create Folder path
-                    var folderName = Path.Combine("Uploads", documentFolder, userId.ToString());
+                    var folderName = Path.Combine("Uploads", documentFolder);
+                    //var folderName = Path.Combine("Uploads", documentFolder, userId.ToString());
                     var pathToSave = Path.Combine(contentRootPath, folderName);
 
                     if (!Directory.Exists(pathToSave))//check if the folder exists;
@@ -60,7 +105,7 @@ namespace Financify.Controllers
                     }
 
                     DirectoryInfo di = new DirectoryInfo(pathToSave);
-                    var existedFileInfo = di.GetFiles().FirstOrDefault(o=>o.Name == fileName);
+                    var existedFileInfo = di.GetFiles().FirstOrDefault(o => o.Name == fileName);
                     if (existedFileInfo != null && !string.IsNullOrEmpty(existedFileInfo.Name))
                         existedFileInfo.Delete();
 
@@ -72,8 +117,9 @@ namespace Financify.Controllers
                     {
                         file.CopyTo(stream);
                     }
+                    dbPath = dbPath.Replace("\\", "/");
 
-                    return Ok(new { dbPath });
+                    return Ok(new { dbPath, fileName });
                 }
                 else
                 {
@@ -86,138 +132,5 @@ namespace Financify.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
-
-        [HttpGet]
-        [AllowAnonymous]
-        //[Authorize]
-        [Route("get")]
-        public ActionResult Get(int userId, int documentType)
-       {
-            string contentRootPath = _webHostEnvironment.ContentRootPath;
-            string result = "";
-            FileInfoDto fileInfo = new FileInfoDto();
-            try
-            {
-                string fileName = "profileImage";
-                //Getting Document Folder from enum
-                string documentFolder = Enums.GetFolderNameByModule(documentType);
-                //Create Folder path
-                var folderName = Path.Combine("Uploads", documentFolder, userId.ToString());
-                string imagePath = Path.Combine(contentRootPath, folderName);
-                //check if the folder exists;
-                if (!Directory.Exists(imagePath))
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    DirectoryInfo dir = new DirectoryInfo(imagePath);
-                    var file = dir.GetFiles().FirstOrDefault(o => o.Name.Contains(fileName));
-                    if (file == null)
-                    {
-                        return BadRequest();
-
-                    }
-                    else
-                    {
-                        string path = folderName + "\\" + file.Name;
-                    path = path.Replace("\\", "/");
-
-
-                    fileInfo.Name = file.Name;
-                    fileInfo.Url = path;
-
-                }
-                }
-                return Ok(fileInfo);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex}");
-            }
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        //[Authorize]
-        [Route("get-all")]
-        public ActionResult GetAll(int userId, int documentType)
-        {
-            string contentRootPath = _webHostEnvironment.ContentRootPath;
-           List<FileInfoDto> fileInfo = new List<FileInfoDto>();
-            try
-            {
-                //Getting Document Folder from enum
-                string documentFolder = Enums.GetFolderNameByModule(documentType);
-                //Create Folder path
-                var folderName = Path.Combine("Uploads", documentFolder, userId.ToString());
-                string imagePath = Path.Combine(contentRootPath, folderName);
-                //check if the folder exists;
-                if (!Directory.Exists(imagePath))
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    DirectoryInfo dirInfo = new DirectoryInfo(imagePath);
-                    foreach (FileInfo file in dirInfo.GetFiles())
-                    {
-                        var files = new FileInfoDto();
-                        string path = folderName + "\\" + file.Name;
-                        path = path.Replace("\\", "/");
-                        files.Name = file.Name;
-                        files.Url = path;
-                        fileInfo.Add( files);
-                    }
-                    return Ok(fileInfo);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex}");
-            }
-        }
-        
-        [HttpGet]
-        [AllowAnonymous]
-        //[Authorize]
-        [Route("delete")]
-        public ActionResult Delete(int userId, int documentType, string fileName)
-        {
-            string contentRootPath = _webHostEnvironment.ContentRootPath;
-            try
-            {
-                //Getting Document Folder from enum
-                string documentFolder = Enums.GetFolderNameByModule(documentType);
-                //Create Folder path
-                var folderName = Path.Combine("Uploads", documentFolder, userId.ToString());
-                string imagePath = Path.Combine(contentRootPath, folderName);
-                //check if the folder exists;
-                if (!Directory.Exists(imagePath))
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    DirectoryInfo dir = new DirectoryInfo(imagePath);
-                    var file = dir.GetFiles().FirstOrDefault(o => o.Name.Contains(fileName));
-                    if (file!=null) 
-                    {
-                        file.Delete();
-                        return Ok();
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
-                   
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex}");
-            }
-        }
-
     }
 }
