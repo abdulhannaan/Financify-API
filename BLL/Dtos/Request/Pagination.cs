@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AHDBLL.Dtos.Request
+namespace BLL.Dtos.Request
 {
     public class Pagination
     {

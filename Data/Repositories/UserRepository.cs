@@ -297,5 +297,28 @@ namespace Data.Repositories
             GC.SuppressFinalize(true);
         }
 
+        public UserInRole GetUserRole(int userId)
+        {
+            try
+            {
+                using (var _context = Db.Create())
+                {
+                    var userRole = _context.UserInRoles.Include(x => x.Role).FirstOrDefault(o => o.UserId == userId);
+
+                    if (userRole != null && userRole.Role != null && userRole.Id > 0)
+                    {
+                        foreach (var child in userRole.Role.UserInRoles.ToList())
+                            userRole.Role.UserInRoles.Remove(child);
+                    }
+                    return userRole;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Logger.Error(ex.Message);
+                return null;
+            }
+        }
+
     }
 }

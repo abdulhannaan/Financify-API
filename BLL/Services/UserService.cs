@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Utility.Enumerations;
-using AHDBLL.Dtos.Request;
 using System.Data;
+using BLL.Dtos.Menu;
+using BLL.Dtos.Request;
 
 namespace BLL.Services
 {
@@ -43,7 +44,7 @@ namespace BLL.Services
             return response;
         }
 
-        public User Login(string username, string password)
+        public LoginResponse Login(string username, string password)
         {
             try
             {
@@ -51,228 +52,228 @@ namespace BLL.Services
                 using (var userData = new UserRepository())
                 {
                     User login = userData.Login(username, encryptedPw);
-                    return login;
-                    #region UserRoleImplimentationNotNeeded
-                    //if (login != null && login.Id > 0)
-                    //{
-                    //    var userRoles = userData.GetUserRoles(login.Id);
-                    //    var userRoleIds = userRoles.Select(p => p.RoleId).ToList();
-                    //    List<MenuDto> menuList = new List<MenuDto>();
+                    if (login != null && login.Id > 0)
+                    {
+                        var userRoles = userData.GetUserRole(login.Id);
+                        var userRoleIds = new List<int>();
+                        userRoleIds.Add(userRoles.RoleId);
+                        List<MenuDto> menuList = new List<MenuDto>();
 
-                    //    var roles = userData.GetAllRolesList(userRoleIds);
+                        var roles = userData.GetAllRolesList(userRoleIds);
 
-                    //    var responseParentMenus = userData.GetAllMenus();
-                    //    var responseSubMenus = userData.GetAllSubMenus();
-                    //    var responsePermission = userData.GetAllPermissions();
+                        var responseParentMenus = userData.GetAllMenus();
+                        var responseSubMenus = userData.GetAllSubMenus();
+                        var responsePermission = userData.GetAllPermissions();
 
-                    //    if (roles != null && roles.Count > 0)
-                    //    {
-                    //        foreach (var role in roles)
-                    //        {
-                    //            var responseMenusPermissions = userData.GetRolePermissionsById(role.RoleId);
-                    //            foreach (var item in responseParentMenus)
-                    //            {
-                    //                var existingMenu = menuList.Where(p => p.MenuId == item.Id).FirstOrDefault();
-                    //                if (existingMenu == null)
-                    //                {
-                    //                    MenuDto menu = new MenuDto();
-                    //                    menu.MenuId = item.Id;
-                    //                    menu.MenuName = item.Name;
-                    //                    menu.MenuUrl = item.Url;
-                    //                    menu.MenuIcon = item.Icon;
-                    //                    menu.SortOrder = (int)item.SortOrder;
+                        if (roles != null && roles.Count > 0)
+                        {
+                            foreach (var role in roles)
+                            {
+                                var responseMenusPermissions = userData.GetRolePermissionsById(role.RoleId);
+                                foreach (var item in responseParentMenus)
+                                {
+                                    var existingMenu = menuList.Where(p => p.MenuId == item.Id).FirstOrDefault();
+                                    if (existingMenu == null)
+                                    {
+                                        MenuDto menu = new MenuDto();
+                                        menu.MenuId = item.Id;
+                                        menu.MenuName = item.Name;
+                                        menu.MenuUrl = item.Url;
+                                        menu.MenuIcon = item.Icon;
+                                        menu.SortOrder = (int)item.SortOrder;
 
-                    //                    menu.SubMenuEnum = "";
-                    //                    menu.MenuPermissions = new List<MenuPermissions>();
-                    //                    if (responseMenusPermissions != null)
-                    //                    {
-                    //                        if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
-                    //                        {
-                    //                            foreach (var per in responsePermission)
-                    //                            {
-                    //                                MenuPermissions MP = new MenuPermissions();
-                    //                                var responseMenu = responseMenusPermissions.Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId && r.MenuId == menu.MenuId).FirstOrDefault();
-                    //                                if (responseMenu != null)
-                    //                                {
-                    //                                    MP.IsAllow = true;
-                    //                                }
-                    //                                MP.PermissionId = per.Id;
-                    //                                MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
+                                        menu.SubMenuEnum = "";
+                                        menu.MenuPermissions = new List<MenuPermissions>();
+                                        if (responseMenusPermissions != null)
+                                        {
+                                            if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
+                                            {
+                                                foreach (var per in responsePermission)
+                                                {
+                                                    MenuPermissions MP = new MenuPermissions();
+                                                    var responseMenu = responseMenusPermissions.Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId && r.MenuId == menu.MenuId).FirstOrDefault();
+                                                    if (responseMenu != null)
+                                                    {
+                                                        MP.IsAllow = true;
+                                                    }
+                                                    MP.PermissionId = per.Id;
+                                                    MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
 
-                    //                                menu.MenuPermissions.Add(MP);
-                    //                            }
-                    //                        }
-                    //                        else
-                    //                        {
-                    //                            foreach (var per in responsePermission)
-                    //                            {
-                    //                                MenuPermissions MP = new MenuPermissions();
-                    //                                menu.MenuPermissions.Add(MP);
-                    //                            }
-                    //                        }
-                    //                    }
-                    //                    else
-                    //                    {
-                    //                        foreach (var per in responsePermission)
-                    //                        {
-                    //                            MenuPermissions MP = new MenuPermissions();
-                    //                            menu.MenuPermissions.Add(MP);
-                    //                        }
-                    //                    }
+                                                    menu.MenuPermissions.Add(MP);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                foreach (var per in responsePermission)
+                                                {
+                                                    MenuPermissions MP = new MenuPermissions();
+                                                    menu.MenuPermissions.Add(MP);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foreach (var per in responsePermission)
+                                            {
+                                                MenuPermissions MP = new MenuPermissions();
+                                                menu.MenuPermissions.Add(MP);
+                                            }
+                                        }
 
-                    //                    if (menu.MenuPermissions.Any(p => p.IsAllow == true && p.PermissionEnumId == RolePermissions.View))
-                    //                    {
-                    //                        //get submenus for this parent menu
-                    //                        var subMenusForThisParentMenu = responseSubMenus.Where(p => Convert.ToInt32(p.MenuId) == item.Id).OrderBy(x => x.SortOrder).ToList();
-                    //                        menu.SubMenus = new List<MenuDto>();
-                    //                        foreach (var submenu in subMenusForThisParentMenu)
-                    //                        {
-                    //                            MenuDto sm = new MenuDto();
-                    //                            sm.MenuId = submenu.Id;
-                    //                            sm.MenuName = submenu.Name;
-                    //                            sm.MenuIcon = submenu.Icon;
-                    //                            sm.MenuUrl = submenu.Url;
-                    //                            sm.SortOrder = (int)submenu.SortOrder;
-                    //                            sm.SubMenuEnum = "";// submenu.SubMenuEnumVal != null ? Convert.ToString(EnumDescription.GetDescription((SubMenuEnum)item.submenu.Value)) : " - ";
-                    //                            sm.MenuPermissions = new List<MenuPermissions>();
-                    //                            if (responseMenusPermissions != null)
-                    //                            {
-                    //                                if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
-                    //                                {
-                    //                                    foreach (var per in responsePermission)
-                    //                                    {
-                    //                                        MenuPermissions MP = new MenuPermissions();
-                    //                                        var responseMenu = responseMenusPermissions.ToList().Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId
-                    //                                        && r.MenuId == item.Id && r.SubMenuId == submenu.Id).FirstOrDefault();
-                    //                                        if (responseMenu != null)
-                    //                                        {
-                    //                                            MP.IsAllow = true;
-                    //                                        }
-                    //                                        MP.PermissionId = per.Id;
-                    //                                        MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
-                    //                                        sm.MenuPermissions.Add(MP);
-                    //                                    }
-                    //                                    menu.SubMenus.Add(sm);
-                    //                                }
-                    //                                else
-                    //                                {
-                    //                                    foreach (var per in responsePermission)
-                    //                                    {
-                    //                                        MenuPermissions MP = new MenuPermissions();
-                    //                                        sm.MenuPermissions.Add(MP);
-                    //                                    }
-                    //                                    menu.SubMenus.Add(sm);
-                    //                                }
-                    //                            }
-                    //                            else
-                    //                            {
-                    //                                foreach (var per in responsePermission)
-                    //                                {
-                    //                                    MenuPermissions MP = new MenuPermissions();
-                    //                                    sm.MenuPermissions.Add(MP);
-                    //                                }
-                    //                                menu.SubMenus.Add(sm);
-                    //                            }
-                    //                        }
-                    //                    }
+                                        if (menu.MenuPermissions.Any(p => p.IsAllow == true && p.PermissionEnumId == RolePermissions.View))
+                                        {
+                                            //get submenus for this parent menu
+                                            var subMenusForThisParentMenu = responseSubMenus.Where(p => Convert.ToInt32(p.MenuId) == item.Id).OrderBy(x => x.SortOrder).ToList();
+                                            menu.SubMenus = new List<MenuDto>();
+                                            foreach (var submenu in subMenusForThisParentMenu)
+                                            {
+                                                MenuDto sm = new MenuDto();
+                                                sm.MenuId = submenu.Id;
+                                                sm.MenuName = submenu.Name;
+                                                sm.MenuIcon = submenu.Icon;
+                                                sm.MenuUrl = submenu.Url;
+                                                sm.SortOrder = (int)submenu.SortOrder;
+                                                sm.SubMenuEnum = "";// submenu.SubMenuEnumVal != null ? Convert.ToString(EnumDescription.GetDescription((SubMenuEnum)item.submenu.Value)) : " - ";
+                                                sm.MenuPermissions = new List<MenuPermissions>();
+                                                if (responseMenusPermissions != null)
+                                                {
+                                                    if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
+                                                    {
+                                                        foreach (var per in responsePermission)
+                                                        {
+                                                            MenuPermissions MP = new MenuPermissions();
+                                                            var responseMenu = responseMenusPermissions.ToList().Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId
+                                                            && r.MenuId == item.Id && r.SubMenuId == submenu.Id).FirstOrDefault();
+                                                            if (responseMenu != null)
+                                                            {
+                                                                MP.IsAllow = true;
+                                                            }
+                                                            MP.PermissionId = per.Id;
+                                                            MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
+                                                            sm.MenuPermissions.Add(MP);
+                                                        }
+                                                        menu.SubMenus.Add(sm);
+                                                    }
+                                                    else
+                                                    {
+                                                        foreach (var per in responsePermission)
+                                                        {
+                                                            MenuPermissions MP = new MenuPermissions();
+                                                            sm.MenuPermissions.Add(MP);
+                                                        }
+                                                        menu.SubMenus.Add(sm);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach (var per in responsePermission)
+                                                    {
+                                                        MenuPermissions MP = new MenuPermissions();
+                                                        sm.MenuPermissions.Add(MP);
+                                                    }
+                                                    menu.SubMenus.Add(sm);
+                                                }
+                                            }
+                                        }
 
-                    //                    menuList.Add(menu);
-                    //                }
-                    //                else
-                    //                {
-                    //                    if (responseMenusPermissions != null)
-                    //                    {
-                    //                        if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
-                    //                        {
-                    //                            foreach (var per in responsePermission)
-                    //                            {
-                    //                                MenuPermissions MP = new MenuPermissions();
-                    //                                var responseMenu = responseMenusPermissions.Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId && r.MenuId == existingMenu.MenuId).FirstOrDefault();
-                    //                                if (responseMenu != null)
-                    //                                {
-                    //                                    MP.IsAllow = true;
-                    //                                }
-                    //                                MP.PermissionId = per.Id;
-                    //                                MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
+                                        menuList.Add(menu);
+                                    }
+                                    else
+                                    {
+                                        if (responseMenusPermissions != null)
+                                        {
+                                            if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
+                                            {
+                                                foreach (var per in responsePermission)
+                                                {
+                                                    MenuPermissions MP = new MenuPermissions();
+                                                    var responseMenu = responseMenusPermissions.Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId && r.MenuId == existingMenu.MenuId).FirstOrDefault();
+                                                    if (responseMenu != null)
+                                                    {
+                                                        MP.IsAllow = true;
+                                                    }
+                                                    MP.PermissionId = per.Id;
+                                                    MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
 
-                    //                                if (MP.IsAllow)
-                    //                                {
-                    //                                    var existingMenuPermission = existingMenu.MenuPermissions.Where(p => p.PermissionId == MP.PermissionId && p.IsAllow == false).FirstOrDefault();
-                    //                                    if (existingMenuPermission != null)
-                    //                                    {
-                    //                                        existingMenuPermission.IsAllow = MP.IsAllow;
-                    //                                    }
-                    //                                }
-                    //                            }
-                    //                        }
-                    //                    }
+                                                    if (MP.IsAllow)
+                                                    {
+                                                        var existingMenuPermission = existingMenu.MenuPermissions.Where(p => p.PermissionId == MP.PermissionId && p.IsAllow == false).FirstOrDefault();
+                                                        if (existingMenuPermission != null)
+                                                        {
+                                                            existingMenuPermission.IsAllow = MP.IsAllow;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
 
-                    //                    if (existingMenu.MenuPermissions.Any(p => p.IsAllow == true && p.PermissionEnumId == RolePermissions.View))
-                    //                    {
-                    //                        //get submenus for this parent menu
-                    //                        var subMenusForThisParentMenu = responseSubMenus.Where(p => Convert.ToInt32(p.MenuId) == item.Id).ToList();
-                    //                        //existingMenu.SubMenus = new List<MenuVM>();
-                    //                        var existingSubMenus = existingMenu.SubMenus;
-                    //                        foreach (var submenu in subMenusForThisParentMenu)
-                    //                        {
-                    //                            var existingSubMenu = existingSubMenus.Where(p => p.MenuId == submenu.Id).FirstOrDefault();
+                                        if (existingMenu.MenuPermissions.Any(p => p.IsAllow == true && p.PermissionEnumId == RolePermissions.View))
+                                        {
+                                            //get submenus for this parent menu
+                                            var subMenusForThisParentMenu = responseSubMenus.Where(p => Convert.ToInt32(p.MenuId) == item.Id).ToList();
+                                            //existingMenu.SubMenus = new List<MenuVM>();
+                                            var existingSubMenus = existingMenu.SubMenus;
+                                            foreach (var submenu in subMenusForThisParentMenu)
+                                            {
+                                                var existingSubMenu = existingSubMenus.Where(p => p.MenuId == submenu.Id).FirstOrDefault();
 
-                    //                            MenuDto sm = new MenuDto();
-                    //                            sm.MenuId = submenu.Id;
-                    //                            sm.MenuName = submenu.Name;
-                    //                            sm.MenuUrl = submenu.Url;
-                    //                            sm.MenuIcon = submenu.Icon;
-                    //                            sm.SortOrder = (int)submenu.SortOrder;
-                    //                            sm.SubMenuEnum = "";// submenu.SubMenuEnumVal != null ? Convert.ToString(EnumDescription.GetDescription((SubMenuEnum)item.submenu.Value)) : " - ";
-                    //                            sm.MenuPermissions = new List<MenuPermissions>();
-                    //                            if (responseMenusPermissions != null)
-                    //                            {
-                    //                                if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
-                    //                                {
-                    //                                    foreach (var per in responsePermission)
-                    //                                    {
-                    //                                        MenuPermissions MP = new MenuPermissions();
-                    //                                        var responseMenu = responseMenusPermissions.Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId
-                    //                                        && r.MenuId == item.Id && r.SubMenuId == submenu.Id).FirstOrDefault();
-                    //                                        if (responseMenu != null)
-                    //                                        {
-                    //                                            MP.IsAllow = true;
-                    //                                        }
-                    //                                        MP.PermissionId = per.Id;
-                    //                                        MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
+                                                MenuDto sm = new MenuDto();
+                                                sm.MenuId = submenu.Id;
+                                                sm.MenuName = submenu.Name;
+                                                sm.MenuUrl = submenu.Url;
+                                                sm.MenuIcon = submenu.Icon;
+                                                sm.SortOrder = (int)submenu.SortOrder;
+                                                sm.SubMenuEnum = "";// submenu.SubMenuEnumVal != null ? Convert.ToString(EnumDescription.GetDescription((SubMenuEnum)item.submenu.Value)) : " - ";
+                                                sm.MenuPermissions = new List<MenuPermissions>();
+                                                if (responseMenusPermissions != null)
+                                                {
+                                                    if (responseMenusPermissions.Count > 0 && responseMenusPermissions != null)
+                                                    {
+                                                        foreach (var per in responsePermission)
+                                                        {
+                                                            MenuPermissions MP = new MenuPermissions();
+                                                            var responseMenu = responseMenusPermissions.Where(r => r.PermissionId == per.Id && r.RoleId == role.RoleId
+                                                            && r.MenuId == item.Id && r.SubMenuId == submenu.Id).FirstOrDefault();
+                                                            if (responseMenu != null)
+                                                            {
+                                                                MP.IsAllow = true;
+                                                            }
+                                                            MP.PermissionId = per.Id;
+                                                            MP.PermissionEnumId = (RolePermissions)per.PermissionEnumVal;
 
-                    //                                        if (MP.IsAllow && existingSubMenu != null)
-                    //                                        {
-                    //                                            var existingMenuPermission = existingSubMenu.MenuPermissions.Where(p => p.PermissionId == MP.PermissionId && p.IsAllow == false).FirstOrDefault();
-                    //                                            if (existingMenuPermission != null)
-                    //                                            {
-                    //                                                existingMenuPermission.IsAllow = MP.IsAllow;
-                    //                                            }
-                    //                                        }
-                    //                                    }
-                    //                                }
-                    //                            }
-                    //                        }
-                    //                    }
-                    //                }
-                    //            }
-                    //        }
-                    //    }
+                                                            if (MP.IsAllow && existingSubMenu != null)
+                                                            {
+                                                                var existingMenuPermission = existingSubMenu.MenuPermissions.Where(p => p.PermissionId == MP.PermissionId && p.IsAllow == false).FirstOrDefault();
+                                                                if (existingMenuPermission != null)
+                                                                {
+                                                                    existingMenuPermission.IsAllow = MP.IsAllow;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
-                    //    var allMenuList = menuList.Where(p => p.MenuPermissions.Any(x => x.IsAllow == true)).OrderBy(p => p.SortOrder).ToList();
+                        var allMenuList = menuList.Where(p => p.MenuPermissions.Any(x => x.IsAllow == true)).OrderBy(p => p.SortOrder).ToList();
 
-                    //    var loginRes = new LoginResponse();
-                    //    loginRes.User = login;
-                    //    loginRes.AllowedMenuList = allMenuList;
-                    //    loginRes.AllowedMainMenuList = menuList.Where(p => p.MenuPermissions.Any(x => x.PermissionEnumId == RolePermissions.View && x.IsAllow == true)).OrderBy(p => p.SortOrder).ToList();
+                        var loginRes = new LoginResponse();
+                        loginRes.User = login;
+                        loginRes.Role = userRoles.Role;
+                        loginRes.AllowedMenuList = allMenuList;
+                        loginRes.AllowedMainMenuList = menuList.Where(p => p.MenuPermissions.Any(x => x.PermissionEnumId == RolePermissions.View && x.IsAllow == true)).OrderBy(p => p.SortOrder).ToList();
 
-                    //    return loginRes;
-                    //}
-                    //else
-                    //{
-                    //    return null;
-                    //} 
-                    #endregion
+                        return loginRes;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
                 }
             }
             catch (Exception ex)

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Utility.Enumerations;
-using AHDBLL.Dtos.Request;
+using BLL.Dtos.Request;
 using System.Data;
 
 namespace BLL.Services

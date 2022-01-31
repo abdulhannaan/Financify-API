@@ -33,10 +33,10 @@ namespace Financify.Controllers
 
             var result = new UserService().Login(Username, Password);
 
-            if (result == null || result.Id == 0)
+            if (result == null || result.User.Id == 0)
                 return Unauthorized(new { responseMessage = "Please enter Valid Username and Password." });
 
-            var tokenStr = new Utils(configuration).BuildToken(result);
+            var tokenStr = new Utils(configuration).BuildToken(result.User);
 
             var response = new
             {
