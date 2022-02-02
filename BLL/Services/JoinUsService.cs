@@ -25,11 +25,14 @@ namespace BLL.Services
                 {
                     obj.FullName = data.FullName;
                     obj.IsActive = true;
-                    obj.Subject = data.Subject;
+                    obj.Subject = " ";
                     obj.EmailAddress = data.EmailAddress;
                     obj.Body = data.Body;
                     obj.MobileNo = data.MobileNo;
                     obj.FileName = data.FileName;
+                    obj.JobId = data.JobId;
+                    obj.CoverFileName = data.CoverFileName;
+                    obj.CoverText = data.CoverText;
                     obj.JobId = data.JobId;
                     obj.CreatedOn = DateTime.Now;
                     joinUsData.Add(obj);
