@@ -10,10 +10,10 @@ namespace BLL.Services
         public object Countries()
         {
             var countries = new CommonRepository().ListCountries();
-            var result  = countries.Select(x => new SelectListDto()
+            var result = countries.Select(x => new SelectListItemId()
             {
-                Value = x.Id.ToString(),
-                Text = x.Name,
+                Id = x.Id,
+                Name = x.Name,
                 Code = x.ShortName
             }).ToList();
             return result;
@@ -22,10 +22,10 @@ namespace BLL.Services
         public object States(int countryid)
         {
             var states = new CommonRepository().ListStates(countryid);
-            var result = states.Select(x => new SelectListDto()
+            var result = states.Select(x => new SelectListItemId()
             {
-                Value = x.Id.ToString(),
-                Text = x.Name
+                Id = x.Id,
+                Name = x.Name,
             }).ToList();
             return result;
         }
@@ -33,13 +33,14 @@ namespace BLL.Services
         public object Cities(int stateId)
         {
             var cities = new CommonRepository().ListCities(stateId);
-            var result = cities.Select(x => new SelectListDto()
+            var result = cities.Select(x => new SelectListItemId()
             {
-                Value = x.Id.ToString(),
-                Text = x.Name
+                Id = x.Id,
+                Name = x.Name,
             }).ToList();
             return result;
         }
 
     }
 }
+

@@ -109,17 +109,17 @@ namespace Financify.Controllers
                     if (existedFileInfo != null && !string.IsNullOrEmpty(existedFileInfo.Name))
                         existedFileInfo.Delete();
 
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
+                    //var fullPath = Path.Combine(pathToSave, fileName);
+                    //fullPath = Path.Combine(pathToSave, fileName);
+                    //var dbPath = Path.Combine(folderName, fileName);
 
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-                    dbPath = dbPath.Replace("\\", "/");
+                    //using (var stream = new FileStream(fullPath, FileMode.Create))
+                    //{
+                    //    file.CopyTo(stream);
+                    //}
+                    //dbPath = dbPath.Replace("\\", "/");
 
-                    return Ok(new { dbPath, fileName });
+                    return Ok(new {fileName });
                 }
                 else
                 {

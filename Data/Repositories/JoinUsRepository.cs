@@ -1,10 +1,5 @@
 ﻿using Data.DataContext;
 using Data.Models;
-using Data.Utils;
-using Utility.Commons;
-using Utility.Enumerations;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;

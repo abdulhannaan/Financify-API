@@ -1,14 +1,9 @@
 ﻿using BLL.Dtos;
-using Utility.Commons;
 using Data.Models;
 using Data.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using Utility.Enumerations;
-using BLL.Dtos.Request;
-using System.Data;
 
 namespace BLL.Services
 {

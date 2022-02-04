@@ -319,7 +319,7 @@ namespace BLL.Services
         public ApiResponseMessage Save(UserDto user, int loggedInUserId)
         {
             var response = new ApiResponseMessage();
-
+            var encryptedPw = "";
             try
             {
                 User obj = new User();
@@ -340,7 +340,10 @@ namespace BLL.Services
                     obj.City = user.City;
                     obj.Address = user.Address;
                     obj.Zip = user.Zip;
-                    
+                    obj.Username = user.Username;
+                    encryptedPw = Encryption.Encrypt(user.Password);
+                    obj.Password = encryptedPw;
+
                     if (user.Id > 0)
                     {
                         obj.UpdatedOn = DateTime.Now;
@@ -349,8 +352,6 @@ namespace BLL.Services
                     }
                     else
                     {
-                        obj.Username = user.Username;
-                        obj.Password = user.Password;
                         obj.CreatedBy = loggedInUserId;
                         obj.CreatedOn = DateTime.Now;
                         userData.Add(obj);
@@ -377,7 +378,9 @@ namespace BLL.Services
             {
                 using (var userData = new UserRepository())
                 {
-                    return userData.Get(Id);
+                    var result = userData.Get(Id);
+                    result.Password = Encryption.Decrypt(result.Password);
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -623,6 +626,35 @@ namespace BLL.Services
             }
             return users;
         }
+
+
+        public bool ValidateUser(string type, string value, int userId)
+        {
+            bool result = false;
+            try
+            {
+                if (type == "email")
+                {
+                    using (var empData = new UserRepository())
+                    {
+                        result = empData.CheckEmailExists(value, userId);
+                    }
+                }
+                else
+                {
+                    using (var userData = new UserRepository())
+                    {
+                        result = userData.CheckUsernameExists(value, userId);
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
     }
 }

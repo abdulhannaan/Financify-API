@@ -319,6 +319,41 @@ namespace Data.Repositories
                 return null;
             }
         }
+        public bool CheckEmailExists(string email, int userId)
+        {
+            try
+            {
+                using (var _context = Db.Create())
+                {
+                    if (userId > 0)
+                        return _context.Users.Any(o => o.Email == email && o.Id != userId);
+                    else
+                        return _context.Users.Any(o => o.Email == email);
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool CheckUsernameExists(string username, int userId)
+        {
+            try
+            {
+                using (var _context = Db.Create())
+                {
+                    if (userId > 0)
+                        return _context.Users.Any(o => o.Username.ToLower() == username.Trim().ToLower() && o.Id != userId);
+                    else
+                        return _context.Users.Any(o => o.Username.ToLower() == username.Trim().ToLower());
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
     }
 }

@@ -129,5 +129,24 @@ namespace Financify.Controllers
         //}
 
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("verify")]
+        public IActionResult Verify(string type, string value, int userId)
+        {
+            ApiResponseMessage response = new ApiResponseMessage();
+            var result = userService.ValidateUser(type, value, userId);
+
+            response.Status = HttpStatusCode.OK;
+            response.Response = result;
+            if (result)
+                response.Message = "This " + type + " already exists. Please try a new one.";
+            else
+                response.Message = "This " + type + " does not exist.";
+
+            return Ok(result);
+        }
+
+
     }
 }
