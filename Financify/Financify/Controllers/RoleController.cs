@@ -87,5 +87,24 @@ namespace HRM.Controllers
             return Ok(response);
         }
 
+
+        [Authorize]
+        [HttpGet]
+        [Route("getuserrole")]
+        public ActionResult GetUserRole(int Id)
+        {
+            ApiResponseMessage response = new ApiResponseMessage();
+            var result = roleService.GetUserRole(Id);
+
+            if (result != null && result.RoleId > 0)
+                response.Message = "Success Roles Found";
+            else
+                response.Message = "Not Found";
+            response.Status = HttpStatusCode.OK;
+            response.Response = result;
+
+            return Ok(response);
+        }
+
     }
 }

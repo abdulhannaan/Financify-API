@@ -656,5 +656,37 @@ namespace BLL.Services
         }
 
 
+        public bool AssignRole(int userId, int roleId)
+        {
+            try
+            {
+                using (var roleData = new RoleRepository())
+                {
+                    var userRoleFromDb = roleData.GetUserRoles(userId).FirstOrDefault();
+                    if (userRoleFromDb != null && userRoleFromDb.Id > 0)
+                    {
+                        userRoleFromDb.RoleId = roleId;
+                        roleData.UpdateUserRole(userRoleFromDb);
+                    }
+                    else
+                    {
+                        var userInRole = new UserInRole();
+                        userInRole.UserId = userId;
+                        userInRole.RoleId = roleId;
+                        roleData.AddUserRole(userInRole);
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+
+
+
     }
 }

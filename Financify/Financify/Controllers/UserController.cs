@@ -146,6 +146,23 @@ namespace Financify.Controllers
 
             return Ok(result);
         }
+        
+
+        [Authorize]
+        [HttpPost]
+        [Route("assignRole")]
+        public IActionResult AssignRole(int userId, int roleId)
+        {
+            ApiResponseMessage response = new ApiResponseMessage();
+            var result = userService.AssignRole(userId,roleId);
+
+            response.Status = HttpStatusCode.OK;
+            response.Response = result;
+            response.Message = result ? "Save" : "Not Save";
+
+
+            return Ok(result);
+        }
 
 
     }

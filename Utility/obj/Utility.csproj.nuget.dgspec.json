@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Workspace-Personal\\Financify-API\\Utility\\Utility.csproj": {}
+    "C:\\WorkSpace\\Financify-API\\Utility\\Utility.csproj": {}
   },
   "projects": {
-    "C:\\Workspace-Personal\\Financify-API\\Utility\\Utility.csproj": {
+    "C:\\WorkSpace\\Financify-API\\Utility\\Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspace-Personal\\Financify-API\\Utility\\Utility.csproj",
+        "projectUniqueName": "C:\\WorkSpace\\Financify-API\\Utility\\Utility.csproj",
         "projectName": "Utility",
-        "projectPath": "C:\\Workspace-Personal\\Financify-API\\Utility\\Utility.csproj",
-        "packagesPath": "C:\\Users\\Apex Sharp\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspace-Personal\\Financify-API\\Utility\\obj\\",
+        "projectPath": "C:\\WorkSpace\\Financify-API\\Utility\\Utility.csproj",
+        "packagesPath": "C:\\Users\\ABH\\.nuget\\packages\\",
+        "outputPath": "C:\\WorkSpace\\Financify-API\\Utility\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Apex Sharp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ABH\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

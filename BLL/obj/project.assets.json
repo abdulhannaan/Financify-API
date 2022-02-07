@@ -7502,19 +7502,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Apex Sharp\\.nuget\\packages\\": {}
+    "C:\\Users\\ABH\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Workspace-Personal\\Financify-API\\BLL\\BLL.csproj",
+      "projectUniqueName": "C:\\WorkSpace\\Financify-API\\BLL\\BLL.csproj",
       "projectName": "BLL",
-      "projectPath": "C:\\Workspace-Personal\\Financify-API\\BLL\\BLL.csproj",
-      "packagesPath": "C:\\Users\\Apex Sharp\\.nuget\\packages\\",
-      "outputPath": "C:\\Workspace-Personal\\Financify-API\\BLL\\obj\\",
+      "projectPath": "C:\\WorkSpace\\Financify-API\\BLL\\BLL.csproj",
+      "packagesPath": "C:\\Users\\ABH\\.nuget\\packages\\",
+      "outputPath": "C:\\WorkSpace\\Financify-API\\BLL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Apex Sharp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ABH\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7528,11 +7528,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Workspace-Personal\\Financify-API\\Data\\Data.csproj": {
-              "projectPath": "C:\\Workspace-Personal\\Financify-API\\Data\\Data.csproj"
+            "C:\\WorkSpace\\Financify-API\\Data\\Data.csproj": {
+              "projectPath": "C:\\WorkSpace\\Financify-API\\Data\\Data.csproj"
             },
-            "C:\\Workspace-Personal\\Financify-API\\Utility\\Utility.csproj": {
-              "projectPath": "C:\\Workspace-Personal\\Financify-API\\Utility\\Utility.csproj"
+            "C:\\WorkSpace\\Financify-API\\Utility\\Utility.csproj": {
+              "projectPath": "C:\\WorkSpace\\Financify-API\\Utility\\Utility.csproj"
             }
           }
         }
@@ -7561,7 +7561,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

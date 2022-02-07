@@ -1,4 +1,5 @@
 ﻿using BLL.Dtos;
+using Data.DataContext;
 using Data.Models;
 using Data.Repositories;
 using System;
@@ -287,6 +288,23 @@ namespace BLL.Services
             catch (Exception ex)
             {
                 //Logger.Error(ex.Message);
+                return null;
+            }
+        }
+
+
+        public UserInRole GetUserRole(int Id)
+        {
+            try
+            {
+                using (var roleData = new RoleRepository())
+                {
+                    var result = roleData.GetUserRoles(Id).FirstOrDefault(); 
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
                 return null;
             }
         }

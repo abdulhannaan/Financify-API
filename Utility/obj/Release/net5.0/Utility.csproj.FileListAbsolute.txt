@@ -1,0 +1,12 @@
+C:\WorkSpace\Financify-API\Utility\bin\Release\net5.0\Utility.deps.json
+C:\WorkSpace\Financify-API\Utility\bin\Release\net5.0\Utility.dll
+C:\WorkSpace\Financify-API\Utility\bin\Release\net5.0\ref\Utility.dll
+C:\WorkSpace\Financify-API\Utility\bin\Release\net5.0\Utility.pdb
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.csproj.AssemblyReference.cache
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.GeneratedMSBuildEditorConfig.editorconfig
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.AssemblyInfoInputs.cache
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.AssemblyInfo.cs
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.csproj.CoreCompileInputs.cache
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.dll
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\ref\Utility.dll
+C:\WorkSpace\Financify-API\Utility\obj\Release\net5.0\Utility.pdb
